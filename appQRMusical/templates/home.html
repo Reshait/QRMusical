@@ -1,24 +1,26 @@
 {% extends "common_template.html" %}
-<p><h1>Hola Hola caracola</h1></p>
-<!--
+
+{% block activate_home %} class="active" {% endblock %}
+
+{% block content %}
 <div class="container">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-sm-8">
 			<div class="well">
 				<a href="${request.static_url('pictures/')}${imagedata['filename']}">
 					<img src="${request.static_url('pictures/')}${    imagedata['filename']}" class="img-responsive">
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Descifrar el código</h3>
+					<h4>Descifrar el código</h4>
 					<p>Ajuste el código a la cámara y cuando quede en una posición bien enfocado, pusle el botón siguiente</p>
-					<button>Descifrar!</button>
+					<button class="btn btn-primary">Descifrar!</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
--->
+{% endblock content %}

@@ -10,3 +10,9 @@ class Home(TemplateView):
 
 class Setting(TemplateView):
     template_name = "setting.html"
+
+class Upload(TemplateView):
+    template_name = "upload.html"
+
+class Game(TemplateView):
+    template_name = "game.html"
