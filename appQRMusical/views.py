@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
+from django.core.urlresolvers import reverse_lazy
 
 from .models import Settings
 
@@ -12,15 +14,15 @@ from .models import Settings
 class Home(TemplateView):
     template_name = "home.html"
 
-class Setting(DetailView):
+#class Setting(DetailView):
+#    model = Settings
+#    template_name = "setting.html"
+
+class Setting(UpdateView):
     model = Settings
     template_name = "setting.html"
-
-#    def get_context_data(self, **kwargs):
-#        context = super(Setting, self).get_context_data(**kwargs)
-#        context['setting'] = setting()
-#        return context
-
+    success_url = reverse_lazy('home')
+    fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
 
 class Upload(TemplateView):
     template_name = "upload.html"
@@ -37,3 +39,4 @@ def take_photo():
             ' -rot ' + str(global_settings.image_rotation) +
             ' -o ' + "captura.jpg" ])
     return
+

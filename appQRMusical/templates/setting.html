@@ -7,13 +7,28 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="well">
-				<h1>Página Setting</h1>
+				<h1>Settings</h1>
+				<!--
 				<p>Image Width: {{object.image_width}}</p>
 				<p>Image Height: {{object.image_height}}</p>
 				<p>Image Rotation: {{object.image_rotation}}</p>
 				<p>Timeout (ms): {{object.timeout}}</p>
+				-->
+				<form method="POST">{% csrf_token %}
+					
+					<span class="text-danger small">{{ field.errors}}</span>
+				
+					<label >{{ field.label_tag}}</label>
+					<div class="col-sm-2">{{ field }}</div>
+					
+				    {{ form.as_p }}
+
+				    <button type="submit" class="btn btn-success"> Save</button>
+				</form>
+
 			</div>
 		</div>
 	</div>
 </div>
 {% endblock content %}
+

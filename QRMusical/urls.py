@@ -22,7 +22,7 @@ from appQRMusical.views import Home, Setting, Upload, Game
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 #    url(r'^$', views.home),
-    url(r'^$', Home.as_view()),
+    url(r'^$', Home.as_view(), name='home'),
 #    url(r'^setting/', Setting.as_view()),
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
     url(r'^upload/$', Upload.as_view()),
