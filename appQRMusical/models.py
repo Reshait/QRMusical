@@ -13,7 +13,8 @@ class Picture(models.Model):
 
 class Settings(models.Model):
     id = models.AutoField(primary_key=True)
-    image_width = models.CharField(max_length=10)
-    image_height = models.CharField(max_length=10)
+    image_width = models.IntegerField(default=800)
+    image_height = models.IntegerField(default=640)
     image_rotation = models.BooleanField(default=False)
+    timeout = models.IntegerField(default=5000)
 

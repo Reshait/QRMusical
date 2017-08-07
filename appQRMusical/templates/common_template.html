@@ -3,10 +3,6 @@
 <html lang="es">
 	<head>
 		<title>QRMusical</title>
-		<!--
-		<link href="${request.static_url('QRMusical:static/css/bootstrap.css')}" rel="stylesheet" media="screen">
-		<link href="${request.static_url('QRMusical:static/css/bootsrap-responsive.css')}" rel ="stylesheet">
-		-->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	</head>
@@ -19,7 +15,7 @@
 				<div class="navbar-collapse collapse" style="height: 1px;">
 					<ul class="nav navbar-nav">
 						<li {% block activate_home %}{% endblock %}><a href="/">Home</a></li>
-						<li {% block activate_settign %}{% endblock %}><a href="/setting">Setting</a></li>
+						<li {% block activate_settign %}{% endblock %}><a href="/setting/1/">Setting</a></li>
 						<li {% block activate_upload %}{% endblock %}><a href="/upload">Upload</a></li>
 						<li {% block activate_game %}{% endblock %}><a href="/game">Game</a></li>
 					</ul>

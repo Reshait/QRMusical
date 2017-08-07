@@ -3,7 +3,17 @@
 {% block activate_setting %} class="active" {% endblock %}
 
 {% block content %}
-<div>
-	<p>Página Setting</p>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="well">
+				<h1>Página Setting</h1>
+				<p>Image Width: {{object.image_width}}</p>
+				<p>Image Height: {{object.image_height}}</p>
+				<p>Image Rotation: {{object.image_rotation}}</p>
+				<p>Timeout (ms): {{object.timeout}}</p>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock content %}
