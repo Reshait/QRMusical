@@ -18,3 +18,8 @@ class Settings(models.Model):
     image_rotation = models.BooleanField(default=False)
     timeout = models.IntegerField(default=5000)
 
+class File(models.Model):
+    id = models.AutoField(primary_key=True)
+    file_name = models.CharField(max_length=100)
+#    file_type = models.
+    url = models.URLField(max_length=300)
