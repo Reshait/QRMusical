@@ -123,4 +123,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Add by Teo
-MEDIA_ROOT = '../appQRMusical/files/'
+MEDIA_URL = '/files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'appQRMusical/files/')

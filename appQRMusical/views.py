@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Settings
+from .forms import FileForm
 
 # Create your views here.
 
@@ -24,8 +25,8 @@ class Setting(UpdateView):
     success_url = reverse_lazy('home')
     fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
 
-class Upload(TemplateView):
-    template_name = "upload.html"
+#class Upload(TemplateView):
+#    template_name = "upload.html"
 
 class Game(TemplateView):
     template_name = "game.html"
@@ -39,4 +40,17 @@ def take_photo():
             ' -rot ' + str(global_settings.image_rotation) +
             ' -o ' + "captura.jpg" ])
     return
+
+def upload(request):
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = FileForm()
+    return render(request, 'upload.html', {
+        'form': form
+    })
+
 

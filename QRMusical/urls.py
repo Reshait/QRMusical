@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from appQRMusical import views
+from django.conf import settings
+from django.conf.urls.static import static
 
-from appQRMusical.views import Home, Setting, Upload, Game
+from appQRMusical.views import Home, Setting, Game
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,6 +27,10 @@ urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
 #    url(r'^setting/', Setting.as_view()),
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
-    url(r'^upload/$', Upload.as_view()),
+#    url(r'^upload/$', Upload.as_view()),
+    url(r'^upload/$', views.upload),
     url(r'^game/$', Game.as_view()),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

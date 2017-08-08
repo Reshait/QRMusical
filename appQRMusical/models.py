@@ -20,6 +20,7 @@ class Settings(models.Model):
 
 class File(models.Model):
     id = models.AutoField(primary_key=True)
-    file_name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255, blank=True)
+    file = models.FileField(upload_to='images/')
 #    file_type = models.
-    url = models.URLField(max_length=300)
+    upload_date = models.DateTimeField(auto_now_add=True)
