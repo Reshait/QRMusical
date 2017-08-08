@@ -11,24 +11,14 @@ from django.conf import settings
 import os
 # Create your views here.
 
-#def home(request):
-#    return render(request, 'home.html',{})
-
 class Home(TemplateView):
     template_name = "home.html"
-
-#class Setting(DetailView):
-#    model = Settings
-#    template_name = "setting.html"
 
 class Setting(UpdateView):
     model = Settings
     template_name = "setting.html"
     success_url = reverse_lazy('home')
     fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
-
-#class Upload(TemplateView):
-#    template_name = "upload.html"
 
 class Game(TemplateView):
     template_name = "game.html"
@@ -42,7 +32,7 @@ def take_photo():
             ' -rot ' + str(global_settings.image_rotation) +
             ' -o ' + "captura.jpg" ])
     return
-"""
+
 def upload(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
@@ -54,8 +44,8 @@ def upload(request):
     return render(request, 'upload.html', {
         'form': form
     })
-"""
 
+"""
 def upload(request):
     output_list = os.popen('ls').read()
     output_list = output_list.splitlines()
@@ -76,4 +66,4 @@ def upload(request):
 
         return render(request, 'upload.html', {'uploaded_file_url': uploaded_file_url, 'output_list': output_list})
     return render(request, 'upload.html', {'output_list': output_list})
-
+"""

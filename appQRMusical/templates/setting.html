@@ -8,12 +8,6 @@
 		<h2>Settings</h2>
 		<h4>Configuración general de la cámara fotográfica</h4>
 		<div class="col-sm-12 well">
-			<!--
-			<p>Image Width: {{object.image_width}}</p>
-			<p>Image Height: {{object.image_height}}</p>
-			<p>Image Rotation: {{object.image_rotation}}</p>
-			<p>Timeout (ms): {{object.timeout}}</p>
-			-->
 			<form method="POST">{% csrf_token %}
 				
 				<span class="text-danger small">{{ field.errors}}</span>

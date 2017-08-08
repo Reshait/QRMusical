@@ -13,48 +13,49 @@
   <p><a href="{% url 'home' %}">Return to home</a></p>
   -->
 <div class="container">
-  <div class="row">
-    <h2>Upload</h2>
-    <h4>Suba archivos para tratarlos</h4>
-    <div class="col-sm-12 well">    
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="myfile">
-        <button type="submit">Upload</button>
-      </form>
+    <div class="row">
+        <h2>Upload</h2>
+        <h4>Suba archivos para tratarlos</h4>
+        <div class="col-sm-12 well">    
+      
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
     </div>
 
     {% if uploaded_file_url %}
-      <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
     {% endif %}
 
     <div class="col-sm-4">
-      <h5>Last 5 Images</h5>
-      <ul>
-        {% for out in output_list %}
-          <li>{{ out }}</li>
-        {% endfor %}    
-      </ul>
+        <h5>Last 5 Images</h5>
+        <ul>
+            {% for out in output_list %}
+            <li>{{ out }}</li>
+            {% endfor %}    
+        </ul>
     </div>    
 
     <div class="col-sm-4">
-      <h5>Last 5 Songs</h5>
-      <ul>
-        {% for out in output_list %}
-          <li>{{ out }}</li>
-        {% endfor %}    
-      </ul>
+        <h5>Last 5 Songs</h5>
+        <ul>
+            {% for out in output_list %}
+                <li>{{ out }}</li>
+            {% endfor %}    
+        </ul>
     </div> 
 
     <div class="col-sm-4">
-      <h5>Last 5 Sounds</h5>
-      <ul>
-        {% for out in output_list %}
-          <li>{{ out }}</li>
-        {% endfor %}    
-      </ul>
+        <h5>Last 5 Sounds</h5>
+        <ul>
+            {% for out in output_list %}
+                <li>{{ out }}</li>
+            {% endfor %}    
+        </ul>
     </div> 
-  </div>
+
 </div>
  
 {% endblock content %}
