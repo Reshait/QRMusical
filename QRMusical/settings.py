@@ -27,7 +27,7 @@ DEBUG = True
 
 #ALLOWED_HOSTS = ['localhost', 'raspberrypi.local']
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['raspberrypi.local']
+ALLOWED_HOSTS = ['raspberrypi.local', 'localhost']
 
 # Application definition
 

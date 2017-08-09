@@ -37,7 +37,13 @@ def upload(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            file_up = File()
+            file_up.filename = request.FILES['file'].name
+            file_up.file = request.FILES['file']
+            file_up.save()
+#            form.filename = request.FILES['file'].name
+#            form.save()
+            #form.save()
             return redirect('home')
     else:
         form = FileForm()
