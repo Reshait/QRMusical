@@ -12,6 +12,7 @@ class Picture(models.Model):
     def __str__(self):
         return self.id
 
+
 class Settings(models.Model):
     id = models.AutoField(primary_key=True)
     image_width = models.IntegerField(default=800)
@@ -35,33 +36,18 @@ def directory_to_upload(self, file):
 
     return os.path.join(directory, file)
 
-"""
-class File(models.Model):
-    id = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=255, blank=True)
-    file = models.FileField(upload_to=directory_to_upload)
-    upload_date = models.DateTimeField(auto_now_add=True)
-"""
 
 class File(models.Model):
+    FILE_TYPES = (
+        ('mp3', 'Song'),
+        ('ogg', 'Sound'),
+        ('jpg', 'Image'),
+    )
     id = models.AutoField(primary_key=True)
-    filename = models.CharField(max_length=128, blank=True, null=True)
     file = models.FileField(upload_to=directory_to_upload)
+    filename = models.CharField(max_length=128, blank=True, null=True)
+    filetype = models.CharField(max_length=3, choices=FILE_TYPES, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.filename
-
-
-"""
-    def upload_to(self):
-        name, extension = os.path.splitext(self.file.name)
-        url == ''
-
-        if extension == 'jpg':
-            url = 'images/'
-        elif extension == 'mp3':
-            url == 'sounds'
-
-        return url
-"""

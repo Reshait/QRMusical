@@ -38,38 +38,16 @@ def upload(request):
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
             file_up = File()
+            file_up.file = request.FILES['file']           
             file_up.filename = request.FILES['file'].name
-            file_up.file = request.FILES['file']
+            name, ext = file_up.filename.rsplit('.', 1)
+            file_up.filetype = ext
             file_up.save()
-#            form.filename = request.FILES['file'].name
-#            form.save()
-            #form.save()
             return redirect('home')
     else:
         form = FileForm()
+
+
     return render(request, 'upload.html', {
         'form': form
     })
-
-"""
-def upload(request):
-    output_list = os.popen('ls').read()
-    output_list = output_list.splitlines()
-
-    if request.method == 'POST' and request.FILES['myfile']:
-       
-        myfile = request.FILES['myfile']
-
-        if myfile.name.endswith('.mp3'):
-            uploaded_file_url = os.path.join(settings.MEDIA_ROOT, 'sounds/')
-        elif myfile.name.endswith('.jpg'):
-            uploaded_file_url = os.path.join(settings.MEDIA_ROOT, 'images/')
-        else:
-            uploaded_file_url = fs.url(filename)
-
-        fs = FileSystemStorage(location = uploaded_file_url)
-        filename = fs.save(myfile.name, myfile)
-
-        return render(request, 'upload.html', {'uploaded_file_url': uploaded_file_url, 'output_list': output_list})
-    return render(request, 'upload.html', {'output_list': output_list})
-"""
