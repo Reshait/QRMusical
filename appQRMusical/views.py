@@ -35,9 +35,9 @@ def take_photo():
 
 
 def upload(request):
-    images_list = File.objects.filter(filetype="jpg")
-    songs_list  = File.objects.filter(filetype="mp3")
-    sounds_list = File.objects.filter(filetype="ogg")
+    images_list = File.objects.filter(filetype="jpg")[:5]
+    songs_list  = File.objects.filter(filetype="mp3")[:5]
+    sounds_list = File.objects.filter(filetype="ogg")[:5]
 
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
