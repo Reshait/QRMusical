@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, FormMixin
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Settings, File
@@ -33,7 +33,12 @@ def take_photo():
             ' -o ' + "captura.jpg" ])
     return
 
+
 def upload(request):
+    images_list = File.objects.filter(filetype="jpg")
+    songs_list  = File.objects.filter(filetype="mp3")
+    sounds_list = File.objects.filter(filetype="ogg")
+
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -47,7 +52,10 @@ def upload(request):
     else:
         form = FileForm()
 
-
     return render(request, 'upload.html', {
-        'form': form
+        'form'          : form,
+        'images_list'   : images_list,
+        'songs_list'    : songs_list,
+        'sounds_list'   : sounds_list
     })
+

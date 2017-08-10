@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from appQRMusical.views import Home, Setting, Game
+#from appQRMusical.views import Upload
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
