@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Home.as_view(), name='home'),
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
-    url(r'^upload/$', views.upload),
-    url(r'^game/$', Game.as_view()),
+    url(r'^upload/$', views.upload, name ='upload'),
+    url(r'^game/$', Game.as_view(), name = 'game'),
 ]
 
 if settings.DEBUG:

@@ -35,9 +35,9 @@ def take_photo():
 
 
 def upload(request):
-    images_list = File.objects.filter(filetype="jpg")[:5]
-    songs_list  = File.objects.filter(filetype="mp3")[:5]
-    sounds_list = File.objects.filter(filetype="ogg")[:5]
+    images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
+    songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")[:5]
+    sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")[:5]
 
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
@@ -48,7 +48,7 @@ def upload(request):
             name, ext = file_up.filename.rsplit('.', 1)
             file_up.filetype = ext
             file_up.save()
-            return redirect('home')
+            return redirect('upload')
     else:
         form = FileForm()
 
