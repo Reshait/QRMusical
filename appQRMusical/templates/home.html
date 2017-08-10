@@ -5,13 +5,15 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<div class="well">
-				<a href="${request.static_url('pictures/')}${imagedata['filename']}">
-					<img src="${request.static_url('pictures/')}${    imagedata['filename']}" class="img-responsive">
-				</a>
-			</div>
+		<h2>Descifrar el código</h2>
+        <h4>Ajuste el QR y cuando esté enfocado, pulse descifrar</h4>
+
+		<div class="col-sm-12 well">
+			<a href="${request.static_url('pictures/')}${imagedata['filename']}">
+				<img src="${request.static_url('pictures/')}${    imagedata['filename']}" class="img-responsive">
+			</a>
 		</div>
+
 		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -21,6 +23,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </div>
 {% endblock content %}
