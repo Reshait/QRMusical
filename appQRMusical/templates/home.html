@@ -9,9 +9,7 @@
         <h4>Ajuste el QR y cuando esté enfocado, pulse descifrar</h4>
 
 		<div class="col-sm-12 well">
-			<a href="${request.static_url('pictures/')}${imagedata['filename']}">
-				<img src="${request.static_url('pictures/')}${    imagedata['filename']}" class="img-responsive">
-			</a>
+		{% load zbar_extras %}
 		</div>
 
 		<div class="col-sm-4">

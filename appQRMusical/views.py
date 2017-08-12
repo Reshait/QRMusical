@@ -9,10 +9,20 @@ from .models import Settings, File
 from .forms import FileForm
 from django.conf import settings
 import os
+
 # Create your views here.
+
+def execute_cam():
+    print "zbarcam --prescale=320x240"
 
 class Home(TemplateView):
     template_name = "home.html"
+    print request.get_full_path()
+#    if urllibl2.get_full_path == 'home':
+#        print "Estoy en Home"
+
+    def zbarcam_activate(self):
+        print execute_cam()
 
 
 class Setting(UpdateView):
@@ -23,7 +33,7 @@ class Setting(UpdateView):
 
 class Game(TemplateView):
     template_name = "game.html"
-    os.popen('zbarcam --prescale=320x240')
+#    os.popen('zbarcam --prescale=320x240')
 
 
 def take_photo():
@@ -35,7 +45,6 @@ def take_photo():
             ' -rot ' + str(global_settings.image_rotation) +
             ' -o ' + "captura.jpg" ])
     return
-
 
 def upload(request):
     images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
