@@ -49,5 +49,5 @@ class File(models.Model):
     filetype = models.CharField(max_length=3, choices=FILE_TYPES, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.filename

@@ -14,6 +14,7 @@ import os
 class Home(TemplateView):
     template_name = "home.html"
 
+
 class Setting(UpdateView):
     model = Settings
     template_name = "setting.html"
@@ -22,6 +23,8 @@ class Setting(UpdateView):
 
 class Game(TemplateView):
     template_name = "game.html"
+    os.popen('zbarcam --prescale=320x240')
+
 
 def take_photo():
     global_settings = DBSession.query(Settigns).first()
