@@ -12,17 +12,16 @@ import os
 
 # Create your views here.
 
-def execute_cam():
-    print "zbarcam --prescale=320x240"
+def get_current_path(request):
+    return {
+       'current_path': request.get_full_path()
+     }
 
 class Home(TemplateView):
     template_name = "home.html"
-    print request.get_full_path()
-#    if urllibl2.get_full_path == 'home':
-#        print "Estoy en Home"
 
-    def zbarcam_activate(self):
-        print execute_cam()
+#    def zbarcam_activate(self):
+#        print execute_cam()
 
 
 class Setting(UpdateView):
