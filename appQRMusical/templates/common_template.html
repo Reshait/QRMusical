@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load zbar_extras %}
 <html lang="es">
 	<head>
 		<title>QRMusical</title>
@@ -22,16 +23,18 @@
 				</div>
 			</div>
 		</div>
-		{% if request.get_full_path == '/' %}	
-			<p>Estamos en el home, aquí se ejecuta el script</p>
-			{{ zbar_activate }}
-		{% else %}
-			<p>Estamos fuera del home, aquí apagar el script</p>
-		{% endif %}
-
 		<div id="content">
 			{% block content %}{% endblock content %}
 		</div>
+
+		{% if request.get_full_path == '/' %}	
+			<p>Estamos en el home, aquí se ejecuta el script</p>
+			{% start_cam %}
+		{% else %}
+			<p>Estamos fuera del home, aquí apagar el script</p>
+			{% stop_cam %}
+		{% endif %}
+		
 		<footer>
 			<div class="container">
 				<center>
