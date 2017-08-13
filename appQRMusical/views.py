@@ -20,8 +20,21 @@ def get_current_path(request):
 class Home(TemplateView):
     template_name = "home.html"
 
-#    def zbarcam_activate(self):
-#        print execute_cam()
+    def get_context_data(self, **kwargs):
+        message = 'Get close QR code to cam'
+        p=os.popen('/usr/bin/zbarcam --prescale=320x240','r')
+        #Barcode variable read by Python from the commandline.
+        print("Please Scan a QRcode to begin...")
+        barcode = p.readline()
+        barcodedata = str(barcode)[8:]
+
+        if barcodedata:
+            message = ("{0}".format(barcodedata))
+
+        return {
+        'cam'          : p,
+        'message'   : message,
+        }
 
 
 class Setting(UpdateView):

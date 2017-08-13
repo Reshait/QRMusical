@@ -6,18 +6,13 @@
 <div class="container">
 	<div class="row">
 		<h2>Descifrar el código</h2>
-        <h4>Ajuste el QR y cuando esté enfocado, pulse descifrar</h4>
+        <h4>Ajuste el QR hasta que esté enfocado</h4>
 		<div class="col-sm-12 well">
+			<iframe width="320" height="240" src="{{ cam }}" frameborder="0" allowfullscreen="False"></iframe>
 		</div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4>Descifrar el código</h4>
-					<p>Ajuste el código a la cámara y cuando quede en una posición bien enfocado, pusle el botón siguiente</p>
-					<button class="btn btn-primary">Descifrar!</button>
-				</div>
-			</div>
+		<div class="col-sm-12 alert alert-info">
+			{{ message }}
 		</div>
 
 	</div>
