@@ -5,6 +5,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, FormMixin
 from django.core.urlresolvers import reverse_lazy
 
+import asyncio
+
 from .models import Settings, File
 from .forms import FileForm
 from django.conf import settings
@@ -17,24 +19,43 @@ def get_current_path(request):
        'current_path': request.get_full_path()
      }
 
+
+@asyncio.coroutine
+def zbar_scan():
+    message = 'Get close QR code to cam'
+    p=os.popen('/usr/bin/zbarcam --prescale=320x240','r')
+    #Barcode variable read by Python from the commandline.
+
+#    while True:
+#        data = ""
+            
+#        while data == "":
+            #print ("Data Antes de data = p.read..." % (data))
+    data = p.readline()
+            #print ("Data despu de data = p.read..." + (data))
+            
+    qrcode = str(data)[8:]
+    if qrcode:
+    #message = ("{0}".format(barcodedata))
+        print(qrcode)
+        message = qrcode
+    #kill all running zbar tasks ... call from python
+    #os.system("ps -face | grep zbar | awk '{print $2}' | xargs kill -s KILL")
+
+    return {
+    'cam'          : p,
+    'message'   : message,
+    }
+
 class Home(TemplateView):
     template_name = "home.html"
 
-    def get_context_data(self, **kwargs):
-        message = 'Get close QR code to cam'
-        p=os.popen('/usr/bin/zbarcam --prescale=320x240','r')
-        #Barcode variable read by Python from the commandline.
-        print("Please Scan a QRcode to begin...")
-        barcode = p.readline()
-        barcodedata = str(barcode)[8:]
+    def get_context_data(self):
+        eventloop = asyncio.new_event_loop()
+        asyncio.set_event_loop(eventloop)
+        eventloop.run_until_complete(zbar_scan()) 
+        eventloop.close()			
 
-        if barcodedata:
-            message = ("{0}".format(barcodedata))
-
-        return {
-        'cam'          : p,
-        'message'   : message,
-        }
 
 
 class Setting(UpdateView):

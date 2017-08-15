@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.simple_tag
 def start_cam():
-    print "Hola"
+    print ("Hola")
     """
     while True:
         #Initializes an instance of Zbar to the commandline to detect barcode data-strings.
@@ -37,6 +37,6 @@ def start_cam():
 
 @register.simple_tag
 def stop_cam():
-    print "Adios"
+    print ("Adios")
         #Kills the webcam window by executing the bash file             
         #os.system("pkill zbarcam")
