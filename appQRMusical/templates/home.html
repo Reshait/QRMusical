@@ -10,11 +10,15 @@
 		<div class="col-sm-12 well">
 			<iframe width="320" height="240" src="{{ cam }}" frameborder="0" allowfullscreen="False"></iframe>
 		</div>
-
+		
 		<div class="col-sm-12 alert alert-info">
-			{{ message }}
+			{% include "message.html" %}
 		</div>
+
 
 	</div>
 </div>
+
+
 {% endblock content %}
+

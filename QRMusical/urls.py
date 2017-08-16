@@ -19,12 +19,14 @@ from appQRMusical import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from appQRMusical.views import Home, Setting, Game
+from appQRMusical.views import Setting, Game
 #from appQRMusical.views import Upload
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', Home.as_view(), name='home'),
+#    url(r'^$', Home.as_view(), name='home'),
+    url(r'^$', views.home, name='home'),
+    url(r'^$', views.message, name='message'),
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
     url(r'^upload/$', views.upload, name ='upload'),
     url(r'^game/$', Game.as_view(), name = 'game'),
