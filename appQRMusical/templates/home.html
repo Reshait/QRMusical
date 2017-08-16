@@ -3,6 +3,7 @@
 {% block activate_home %} class="active" {% endblock %}
 
 {% block content %}
+
 <div class="container">
 	<div class="row">
 		<h2>Descifrar el código</h2>
@@ -11,14 +12,13 @@
 			<iframe width="320" height="240" src="{{ cam }}" frameborder="0" allowfullscreen="False"></iframe>
 		</div>
 		
-		<div class="col-sm-12 alert alert-info">
+		<div>
 			{% include "message.html" %}
 		</div>
 
 
 	</div>
 </div>
-
 
 {% endblock content %}
 

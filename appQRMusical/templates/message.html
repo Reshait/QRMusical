@@ -1,11 +1,11 @@
-		
-		
-		<div id="auto">
-			{{ message }}
-		</div>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>	
+{% load staticfiles %}
 
+
+<div id="auto" class="col-sm-12 alert alert-info">
+	{{ message }}
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>	
 
 <script type="text/javascript">
 	
