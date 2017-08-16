@@ -5,15 +5,17 @@
 	<head>
 		<title>QRMusical</title>
 		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'css/QRMusical.css' %}" rel="stylesheet" type="text/css">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<div id="sidebar" class="navbar navbar-inverse navbar-static-top">
-			<div class="container">
+		<div id="sidebar" class="navbar QRM_nav navbar-static-top">
+			<div class="container QRM_container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="/">QRMusical</a>
+					<a class="navbar-brand QRM_navbar-brand" href="/">QRMusical</a>
 				</div>
 				<div class="navbar-collapse collapse" style="height: 1px;">
-					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav QRM_navbar_nav">
 						<li {% block activate_home %}{% endblock %}><a href="/">Home</a></li>
 						<li {% block activate_settign %}{% endblock %}><a href="/setting/1/">Setting</a></li>
 						<li {% block activate_upload %}{% endblock %}><a href="/upload">Upload</a></li>
@@ -40,7 +42,7 @@
 					<div class="text" style="color: #778088">
 						© 2017 
 						<strong>QRMusical by Teo</strong>.
-						Made with ♥ in Django
+						Made with <span class="QRM_love">♥</span> in Django
 					</div>
 				</center>
 			</div>
