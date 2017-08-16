@@ -32,6 +32,13 @@ def capturar():
 	global p
 """
 
+def read_code():
+		data = global_vars.zbar_status.readline()
+		qrcode = str(data)[8:]
+		if qrcode:
+			print(qrcode)
+			global_vars.message = qrcode	
+
 def home(request):	
 	global_vars.cam
 	global_vars.message
@@ -46,11 +53,9 @@ def home(request):
 		global_vars.cam = 2
 		
 	elif global_vars.cam == 2:
-		data = global_vars.zbar_status.readline()
-		qrcode = str(data)[8:]
-		if qrcode:
-			print(qrcode)
-			global_vars.message = qrcode
+		if global_vars.zbar_status != None:
+			t = threading.Thread(target=read_code)
+			t.start()
 
 	print(global_vars.message)
 

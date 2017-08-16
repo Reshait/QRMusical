@@ -26,14 +26,14 @@
 		<div id="content">
 			{% block content %}{% endblock content %}
 		</div>
-
-		{% if request.get_full_path == '/' %}	
-			<p>Estamos en el home, aquí se ejecuta el script</p>
-			{% start_cam %}
-		{% else %}
-			<p>Estamos fuera del home, aquí apagar el script</p>
-			{% stop_cam %}
-		{% endif %}
+	
+		<div style="display:none">
+			{% if request.get_full_path == '/' %}	
+				{% start_cam %}
+			{% else %}
+				{% stop_cam %}
+			{% endif %}
+		</div>
 		
 		<footer>
 			<div class="container">
