@@ -38,13 +38,13 @@ def home(request):
 	global_vars.zbar_status
 	
 	if global_vars.cam == 0:
-		global_vars.cam = 1
 		global_vars.message = 'Get close QR code to cam'
+		global_vars.cam = 1
 
 	elif global_vars.cam == 1:
-		global_vars.cam = 2
 		global_vars.zbar_status = os.popen('/usr/bin/zbarcam --prescale=320x240','r')
-
+		global_vars.cam = 2
+		
 	elif global_vars.cam == 2:
 		data = global_vars.zbar_status.readline()
 		qrcode = str(data)[8:]
