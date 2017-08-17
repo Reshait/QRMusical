@@ -89,7 +89,7 @@ def upload(request):
 	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
 	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")[:5]
 	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")[:5]
-
+	
 	if request.method == 'POST':
 		form = FileForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -107,7 +107,7 @@ def upload(request):
 		'form'          : form,
 		'images_list'   : images_list,
 		'songs_list'    : songs_list,
-		'sounds_list'   : sounds_list
+		'sounds_list'   : sounds_list,
 	})
 
 class Item(DetailView):

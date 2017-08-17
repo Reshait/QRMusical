@@ -18,10 +18,6 @@
 			</div>   
 		</div>
 
-		{% if uploaded_file_url %}
-			<p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-		{% endif %}
-
 		<div class="col-sm-4">
 			<h5>Last 5 Images</h5>
 			{% for img in images_list %}
