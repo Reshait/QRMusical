@@ -1,0 +1,25 @@
+{% extends "common_template.html" %}
+
+{% block activate_home %} class="active" {% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<h1>Description of item</h1>
+        <h2>There are the type of file</h2>
+
+		<div class="col-sm-12 QRM_box QRM_pink">
+			<div class="QRM_box_in">
+				<h5><a target="_blank" href="{{ object.file.url }}">{{ object.filename }}</a> </h5>
+				<img src="/files/temp/temp.png" style="margin-bottom: 20px;">
+				<p>Tipo de Archivo: {{ object.filetype }}</p>
+				<p>Ruta de Archivo: {{ object.file.url }}</p>	
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock content %}
+

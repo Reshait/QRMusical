@@ -19,7 +19,7 @@ from appQRMusical import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from appQRMusical.views import Setting, Game
+from appQRMusical.views import Setting, Game, Item
 #from appQRMusical.views import Upload
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
     url(r'^upload/$', views.upload, name ='upload'),
     url(r'^game/$', Game.as_view(), name = 'game'),
+    url(r'^item/(?P<pk>\d+)/$', Item.as_view(), name='item'),
 ]
 
 if settings.DEBUG:

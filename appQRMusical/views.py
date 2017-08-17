@@ -4,6 +4,8 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, FormMixin
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import get_object_or_404
+
 
 import threading
 
@@ -108,3 +110,14 @@ def upload(request):
 		'sounds_list'   : sounds_list
 	})
 
+class Item(DetailView):
+	model = File
+	template_name = "detail.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(Item, self).get_context_data(**kwargs)
+		url = str(self.object.file.url)
+		qrencode_command = "qrencode %s -o appQRMusical/files/temp/temp.png -s 6" % (url)
+		context['qr'] = os.popen(qrencode_command)
+		print (context['qr'])
+		return context

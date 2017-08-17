@@ -32,6 +32,8 @@
 	border-color: rgba(0, 0, 0, 0.1);
 	background-color: rgba(0, 0, 0, 0.1);
 	min-height: 300px;
+	color: inherit !important;
+	padding: 20px;
 }
 
 .QRM_green{
@@ -69,7 +71,6 @@ h5{
 	font-size: 18px !important;
 	line-height: 26px;
 	font-weight: 600;
-	color: #262626;
 	margin: 0;
 	display: block;
 	font-size: 1.17em;
@@ -91,9 +92,9 @@ p {
     font-size: 18px;
     line-height: 26px;
     font-weight: 400;
-    color: #262626;
 }
 
 footer{
 	padding: 50px 0px 20px 0px;
 }
+
