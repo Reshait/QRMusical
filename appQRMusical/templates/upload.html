@@ -25,21 +25,27 @@
 		<div class="col-sm-4">
 			<h5>Last 5 Images</h5>
 			{% for img in images_list %}
-				<p>{{ img }}</p>
+				<a href="{% url 'item' img.pk %}">
+					<p>{{ img }}</p>
+				</a>
 			{% endfor %}    
 		</div>    
 
 		<div class="col-sm-4">
 			<h5>Last 5 Songs</h5>
 			{% for son in songs_list %}
-				<p>{{ son }}</p>
+				<a href="{% url 'item' son.pk %}">
+					<p>{{ son }}</p>
+				</a>
 			{% endfor %}    
 		</div> 
 
 		<div class="col-sm-4">
 			<h5>Last 5 Sounds</h5>
 			{% for sou in sound_list %}
-				<p>{{ sou }}</p>
+				<a href="{% url 'item' sou.pk %}">
+					<p>{{ sou }}</p>
+				</a>			
 			{% endfor %}    
 		</div> 
 	</div>
