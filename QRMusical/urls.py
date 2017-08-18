@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
 
     url(r'^upload/$', views.upload, name ='upload'),
-    url(r'^last_items/$', views.last_items, name ='last_items'),
+    url(r'^upload/$', views.last_items, name ='last_items'),
 
     url(r'^game/$', Game.as_view(), name = 'game'),
     url(r'^item_detail/(?P<pk>\d+)/$', Item_detail.as_view(), name='item_detail'),

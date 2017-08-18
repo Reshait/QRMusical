@@ -25,7 +25,7 @@ def directory_to_upload(self, file):
     name, extension = os.path.splitext(file)
     directory = ''
 
-    if extension == '.jpg':
+    if extension == '.jpg' or extension == '.jpeg':
         directory = 'images/'
 
     elif extension == '.mp3':

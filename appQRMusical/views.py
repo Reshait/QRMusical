@@ -96,7 +96,7 @@ def upload(request):
 
 	return render(request, 'upload.html', {
 		'form'          : form,
-#		'images_list'   : images_list,
+#		'images_list'   : 'images_list',
 #		'songs_list'    : songs_list,
 #		'sounds_list'   : sounds_list,
 	})	
@@ -129,11 +129,9 @@ class Item_detail(DetailView):
 class Item_delete(DeleteView):
 	model = File
 	success_url = reverse_lazy('item_list')
-
-	def del_in_HD(self):
+	def get_object(self):
 		obj = super(Item_delete, self).get_object()
 		url = str(obj.file.url)
-#		os.remove(settings.MEDIA_ROOT+'%s' % url)
-		print ("****************** HOLAS JODER *******************")
-		print url
-		return super(Item_delete,self).delete()
+		url = url[7:]
+		os.remove(settings.MEDIA_ROOT+'%s' % (url))
+		return obj
