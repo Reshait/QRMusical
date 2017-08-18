@@ -28,7 +28,10 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^$', views.message, name='message'),
     url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
+
     url(r'^upload/$', views.upload, name ='upload'),
+    url(r'^upload/$', views.last_items, name ='last_items'),
+
     url(r'^game/$', Game.as_view(), name = 'game'),
     url(r'^item/(?P<pk>\d+)/$', Item.as_view(), name='item'),
 ]
