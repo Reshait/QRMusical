@@ -1,0 +1,59 @@
+{% extends "common_template.html" %}
+
+{% block activate_items %} class="active" {% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<h1>Listing items</h1>
+
+		<div class="col-sm-12">
+			<h2>Images</h2>
+			{% for img in images_list %}
+				<a href="{% url 'item_detail' img.pk %}">
+					<div class="col-sm-2 QRM_item_list">
+						<img src="{{ img.file.url }}" style="width: 200px">
+						<center><h5>{{ img }}</h5></center>
+					</div>
+				</a>
+			{% endfor %}    
+		</div>    
+
+		<div class="col-sm-12">
+			<h2>Songs</h2>
+			{% for son in songs_list %}
+				<a href="{% url 'item_detail' son.pk %}">
+					<div class="col-sm-2 QRM_item_list">
+						<img src="{{  '/files/mp3.png'}}" style="width: 170px; margin: 9px">
+						<audio controls>
+							<source src="{{ son.file.url }}" type="audio/mpeg">
+							Your browser does not support the audio element.
+						</audio>
+						<h5>{{ son }}</h5>
+					</div>
+				</a>
+			{% endfor %}    
+		</div> 
+
+		<div class="col-sm-12">
+			<h2>Sounds</h2>
+			{% for sou in sound_list %}
+				<a href="{% url 'item_detail' sou.pk %}">
+					<div class="col-sm-2 QRM_item_list">				
+						<img src="{{  '/files/ogg.png'}}" style="width: 170px; margin: 9px">
+						<audio controls>
+							<source src="{{ sou.file.url }}" type="audio/ogg">
+							Your browser does not support the audio element.
+						</audio>
+						<h5>{{ sou }}</h5>
+					</div>
+				</a>			
+			{% endfor %}    
+		</div> 
+
+	</div>
+</div>
+
+{% endblock content %}
+

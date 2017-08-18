@@ -102,15 +102,26 @@ def upload(request):
 #		'sounds_list'   : sounds_list,
 	})	
 
+def item_list(request):
+	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")
+	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")
+	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")
+	print(images_list)	
+	return render(request, 'item_list.html', {
+		'images_list'   : images_list,
+		'songs_list'    : songs_list,
+		'sounds_list'   : sounds_list,
+	})
 
-class Item(DetailView):
+class Item_detail(DetailView):
 	model = File
-	template_name = "detail.html"
+	template_name = "item_detail.html"
 
 	def get_context_data(self, **kwargs):
-		context = super(Item, self).get_context_data(**kwargs)
+		context = super(Item_detail, self).get_context_data(**kwargs)
 		url = str(self.object.file.url)
 		qrencode_command = "qrencode %s -o appQRMusical/files/temp/temp.png -s 6" % (url)
 		context['qr'] = os.popen(qrencode_command)
-		print (context['qr'])
+		if context['qr']:
+			print("QR code of %s make it!" % self.object.filename)
 		return context
