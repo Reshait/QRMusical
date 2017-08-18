@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView, FormMixin
+from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 
@@ -69,7 +69,6 @@ def last_items(request):
 	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
 	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")[:5]
 	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")[:5]
-	print (images_list)
 	return render(request, 'last_items.html', {
 		'images_list'   : images_list,
 		'songs_list'    : songs_list,
@@ -106,7 +105,7 @@ def item_list(request):
 	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")
 	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")
 	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")
-	print(images_list)	
+
 	return render(request, 'item_list.html', {
 		'images_list'   : images_list,
 		'songs_list'    : songs_list,
@@ -125,3 +124,16 @@ class Item_detail(DetailView):
 		if context['qr']:
 			print("QR code of %s make it!" % self.object.filename)
 		return context
+
+
+class Item_delete(DeleteView):
+	model = File
+	success_url = reverse_lazy('item_list')
+
+	def del_in_HD(self):
+		obj = super(Item_delete, self).get_object()
+		url = str(obj.file.url)
+#		os.remove(settings.MEDIA_ROOT+'%s' % url)
+		print ("****************** HOLAS JODER *******************")
+		print url
+		return super(Item_delete,self).delete()

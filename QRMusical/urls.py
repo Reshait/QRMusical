@@ -19,7 +19,7 @@ from appQRMusical import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from appQRMusical.views import Setting, Game, Item_detail
+from appQRMusical.views import Setting, Game, Item_detail, Item_delete
 #from appQRMusical.views import Upload
 
 urlpatterns = [
@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^game/$', Game.as_view(), name = 'game'),
     url(r'^item_detail/(?P<pk>\d+)/$', Item_detail.as_view(), name='item_detail'),
     url(r'^item_list/$', views.item_list, name='item_list'),
-
+    url(r'^item_detail/(?P<pk>\d+)/delete/$', Item_delete.as_view(), name='item_delete'),
 ]
 
 if settings.DEBUG:

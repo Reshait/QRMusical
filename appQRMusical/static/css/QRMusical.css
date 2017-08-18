@@ -44,6 +44,22 @@
     border-radius: 5px;
     margin: 15px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    transition: all 200ms ease-out;
+	text-align: -webkit-center;
+}
+
+.QRM_item_delete{
+    position: absolute;
+    right: 0;
+}
+
+.QRM_item_delete:hover{
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+
+.QRM_item_list:hover{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .QRM_green{
