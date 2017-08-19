@@ -35,12 +35,22 @@
 			{% for son in songs_list %}
 				<a href="{% url 'item_detail' son.pk %}">
 					<div class="col-sm-2 QRM_item_list">
-						<img src="{{ '/files/static/mp3.png' }}" style="width: 170px; margin: 9px" />
-						<audio controls>
-							<source src="{{ son.file.url }}" type="audio/mpeg">
+
+						<form action="{% url 'item_delete' son.id %}" method="post">
+							{% csrf_token %}
+							<input type="hidden" name="son_id" value="{{ son.id }}"/>
+							<button type="submit" class="btn btn-danger btn-sm QRM_item_delete">
+								<p>✖</p>
+							</button>
+						</form>
+
+						<img src="{{ '/files/static/mp3.png' }}" style="width: 170px; margin: 9px">
+						<audio controls style="width: 100%;">
+							<source src="{{ son.file.url }}" type="audio/mp3">
 							Your browser does not support the audio element.
-						</audio>
+						</audio>						
 						<h5>{{ son }}</h5>
+
 					</div>
 				</a>
 			{% endfor %}    
@@ -50,13 +60,30 @@
 			<h2>Sounds</h2>
 			{% for sou in sounds_list %}
 				<a href="{% url 'item_detail' sou.pk %}">
-					<div class="col-sm-2 QRM_item_list">				
+					<div class="col-sm-2 QRM_item_list">
+
+						<form action="{% url 'item_delete' sou.id %}" method="post">
+							{% csrf_token %}
+							<input type="hidden" name="sou_id" value="{{ sou.id }}"/>
+							<button type="submit" class="btn btn-danger btn-sm QRM_item_delete">
+								<p>✖</p>
+							</button>
+						</form>
+
+						<img src="{{ '/files/static/mp3.png' }}" style="width: 170px; margin: 9px">
+						<audio controls style="width: 100%;">
+							<source src="{{ sou.file.url }}" type="audio/ogg">
+							Your browser does not support the audio element.
+						</audio>						
+						<h5>{{ sou }}</h5>
+<!--
 						<img src="{{ '/files/static/ogg.png' }}" style="width: 170px; margin: 9px"/>
 						<audio controls>
 							<source src="{{ sou.file.url }}" type="audio/ogg">
 							Your browser does not support the audio element.
 						</audio>
 						<h5>{{ sou }}</h5>
+-->
 					</div>
 				</a>			
 			{% endfor %}    

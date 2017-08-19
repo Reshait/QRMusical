@@ -5,12 +5,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django import forms
 
 
 import threading
 
 from .models import Settings, File
-from .forms import FileForm
+from .forms import FileForm, SettingEditForm
 from django.conf import settings
 import os
 
@@ -56,9 +57,13 @@ def home(request):
 
 class Setting(UpdateView):
 	model = Settings
+	form_class =  SettingEditForm
 	template_name = "setting.html"
 	success_url = reverse_lazy('home')
-	fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
+#	fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
+#	widgets = {
+#	    'image_width': NumberInput(attrs={'min': '160', 'max': '640'}),
+#		}
 
 
 class Game(TemplateView):

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import os
+
 # Create your models here.
 
 class Picture(models.Model):
@@ -15,10 +16,10 @@ class Picture(models.Model):
 
 class Settings(models.Model):
     id = models.AutoField(primary_key=True)
-    image_width = models.IntegerField(default=800)
-    image_height = models.IntegerField(default=640)
+    image_width = models.IntegerField(default=320) 
+    image_height = models.IntegerField(default=240)
     image_rotation = models.BooleanField(default=False)
-    timeout = models.IntegerField(default=5000)
+    timeout = models.IntegerField(default=2000)
 
 
 def directory_to_upload(self, file):
