@@ -56,8 +56,12 @@ def home(request):
 
 	print(global_vars.message)
 
-	if context['message'] != 'Get close QR code to cam':
-		context['alert'] = "alert-success"
+	if global_vars.message != "Get close QR code to cam":
+		if os.path.exists(global_vars.message):
+			context['alert'] = "alert-success"
+		else:
+			context['alert'] = "alert-danger"
+			context['message'] = "The code NO exists"
 
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
@@ -124,6 +128,8 @@ class Item_detail(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(Item_detail, self).get_context_data(**kwargs)
 		url = str(self.object.file.url)
+
+		url = url[7:]
 		
 		if not os.path.exists('appQRMusical/files/temp/'):
 			os.mkdir('appQRMusical/files/temp/')
