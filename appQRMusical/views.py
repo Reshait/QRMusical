@@ -6,6 +6,7 @@ from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django import forms
+from django.template import Context
 
 
 import threading
@@ -36,6 +37,8 @@ def home(request):
 	global_vars.cam
 	global_vars.message
 	global_vars.zbar_status
+
+	context = last_items(request, 5)
 	
 	if global_vars.cam == 0:
 		global_vars.message = 'Get close QR code to cam'
@@ -52,7 +55,8 @@ def home(request):
 
 	print(global_vars.message)
 
-	context = {'message' : global_vars.message,}
+#	context = {'message' : global_vars.message,}
+	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
 
 class Setting(UpdateView):
@@ -60,31 +64,23 @@ class Setting(UpdateView):
 	form_class =  SettingEditForm
 	template_name = "setting.html"
 	success_url = reverse_lazy('home')
-#	fields = ['image_width', 'image_height', 'image_rotation', 'timeout']
-#	widgets = {
-#	    'image_width': NumberInput(attrs={'min': '160', 'max': '640'}),
-#		}
 
 
 class Game(TemplateView):
 	template_name = "game.html"
 
 
-def last_items(request):
-	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
-	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")[:5]
-	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")[:5]
-	return render(request, 'last_items.html', {
-		'images_list'   : images_list,
-		'songs_list'    : songs_list,
-		'sounds_list'   : sounds_list,
-	})
+def last_items(request, number_objects):
+	return {
+		'images_list'	: File.objects.order_by('-upload_date').filter(filetype="jpg")[:number_objects],
+		'songs_list'	: File.objects.order_by('-upload_date').filter(filetype="mp3")[:number_objects],
+		'sounds_list'	: File.objects.order_by('-upload_date').filter(filetype="ogg")[:number_objects],
+	}
 
 
 def upload(request):
-#	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")[:5]
-#	songs_list  = File.objects.order_by('-upload_date').filter(filetype="mp3")[:5]
-#	sounds_list = File.objects.order_by('-upload_date').filter(filetype="ogg")[:5]
+
+	context = last_items(request, 5)
 	
 	if request.method == 'POST':
 		form = FileForm(request.POST, request.FILES)
@@ -101,10 +97,11 @@ def upload(request):
 
 	return render(request, 'upload.html', {
 		'form'          : form,
-#		'images_list'   : 'images_list',
-#		'songs_list'    : songs_list,
-#		'sounds_list'   : sounds_list,
+		'images_list'   : context['images_list'],
+		'songs_list'    : context['songs_list'],
+		'sounds_list'   : context['sounds_list'],
 	})	
+
 
 def item_list(request):
 	images_list = File.objects.order_by('-upload_date').filter(filetype="jpg")
@@ -116,6 +113,7 @@ def item_list(request):
 		'songs_list'    : songs_list,
 		'sounds_list'   : sounds_list,
 	})
+
 
 class Item_detail(DetailView):
 	model = File

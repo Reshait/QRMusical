@@ -21,7 +21,7 @@
 
 		<div class="col-sm-4">
 			<h5>Last 5 Sounds</h5>
-			{% for sou in sound_list %}
+			{% for sou in sounds_list %}
 				<a href="{% url 'item_detail' sou.pk %}">
 					<p>{{ sou }}</p>
 				</a>			
