@@ -32,13 +32,15 @@ def read_code():
 			print(qrcode)
 			global_vars.message = qrcode	
 
+
 def home(request):	
 	global_vars.cam
 	global_vars.message
 	global_vars.zbar_status
 
 	context = last_items(request, 5)
-	
+	context['alert'] = "alert-info"
+
 	if global_vars.cam == 0:
 		global_vars.message = 'Get close QR code to cam'
 		global_vars.cam = 1
@@ -53,6 +55,9 @@ def home(request):
 			t.start()
 
 	print(global_vars.message)
+
+	if context['message'] != 'Get close QR code to cam':
+		context['alert'] = "alert-success"
 
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
@@ -80,32 +85,24 @@ def last_items(request, number_objects):
 def upload(request):
 
 	context = last_items(request, 5)
-	message = "Select a File, and press Upload"
-	alert = "alert-info"
+	context['message'] = "Select a File, and press Upload"
+	context['alert'] = "alert-info"
 	
 	if request.method == 'POST':
-		form = FileForm(request.POST, request.FILES)
-		if form.is_valid():
+		context['form'] = FileForm(request.POST, request.FILES)
+		if context['form'].is_valid():
 			file_up = File()
 			file_up.file = request.FILES['file']
 			file_up.filename = request.FILES['file'].name
 			name, ext = file_up.filename.rsplit('.', 1)
 			file_up.filetype = ext
 			file_up.save()
-			message = "File upload success"
-			alert = "alert-success"
-			#return redirect('upload')
+			context['message'] = "File \"%s\" upload success" % (file_up)
+			context['alert'] = "alert-success"
 	else:
-		form = FileForm()
+		context['form'] = FileForm()
 
-	return render(request, 'upload.html', {
-		'form'          : form,
-		'images_list'   : context['images_list'],
-		'songs_list'    : context['songs_list'],
-		'sounds_list'   : context['sounds_list'],
-		'message'		: message,
-		'alert'			: alert,
-	})	
+	return render(request, 'upload.html', context)	
 
 
 def item_list(request):
@@ -147,5 +144,6 @@ class Item_delete(DeleteView):
 		obj = super(Item_delete, self).get_object()
 		url = str(obj.file.url)
 		url = url[7:]
-		os.remove(settings.MEDIA_ROOT+'%s' % (url))
+		if os.path.isfile(settings.MEDIA_ROOT+'%s' % (url)):
+			os.remove(settings.MEDIA_ROOT+'%s' % (url))
 		return obj

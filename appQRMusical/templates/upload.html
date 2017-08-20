@@ -12,14 +12,23 @@
 			<div class="QRM_box_in">
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
-					{{ form.as_p }}
-					<button type="submit">Upload</button>
+					<center>{{ form.as_p }}</center>
+					<button type="submit" class="QRM_btn">Upload</button>
 				</form>
 			</div>   
 		</div>
 
 		<div class="col-sm-12 QRM_box alert {{ alert }}">
-			<p>{{ message }}</p>	
+			<p>
+				<strong>
+					{% if alert == 'alert-info' %}
+						Info. 
+					{% elif alert == 'alert-success' %}
+						Succes!.
+					{% endif %}
+				</strong>
+				{{ message }}
+			</p>	
 		</div>
 
 	</div>

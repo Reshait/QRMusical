@@ -83,6 +83,31 @@
 	font-size: 1.3em;
 }
 
+.QRM_btn{
+	background-color: transparent;
+	border-width: 2px;
+	border-style: solid;
+	border-color: white;
+	min-width: 90px;
+	max-width: 360px;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-stretch: normal;
+	border-radius: 5px;
+	margin-top: 20px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;	
+}
+
+.QRM_btn:hover{
+	background-color: white;
+	color: black;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 h1 {
 	font-size: 32px;
 	line-height: 1.5;
@@ -104,8 +129,6 @@ h5{
 	margin: 0;
 	display: block;
 	font-size: 1.17em;
-	-webkit-margin-before: 1em;
-	-webkit-margin-after: 1em;
 	-webkit-margin-start: 0px;
 	-webkit-margin-end: 0px;
 	font-weight: bold;

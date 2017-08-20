@@ -24,6 +24,7 @@ class Settings(models.Model):
 
 def directory_to_upload(self, file):
     name, extension = os.path.splitext(file)
+    extension.lower()
     directory = ''
 
     if extension == '.jpg' or extension == '.jpeg':

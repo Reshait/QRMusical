@@ -1,8 +1,15 @@
 {% load staticfiles %}
 
-<div class="col-sm-12 QRM_box alert alert-info">
+<div class="col-sm-12 QRM_box alert {{ alert }}">
 	<div id="auto" >
 		<p>
+			<strong>
+				{% if alert == 'alert-info' %}
+					Info. 
+				{% elif alert == 'alert-success' %}
+					Succes!.
+				{% endif %}
+			</strong>
 			{{ message }}
 		</p>
 	</div>
