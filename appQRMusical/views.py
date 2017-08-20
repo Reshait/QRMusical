@@ -56,12 +56,17 @@ def home(request):
 
 	print(global_vars.message)
 
+	url = global_vars.message
+	url = url[1:-1] 					#-1 is for delete \n
+	
 	if global_vars.message != "Get close QR code to cam":
-		if os.path.exists(global_vars.message):
+		path = settings.MEDIA_ROOT+'%s' % (url)
+		
+		if os.path.exists(path):
 			context['alert'] = "alert-success"
+			context['image'] = settings.MEDIA_URL+'%s' % (url)
 		else:
 			context['alert'] = "alert-danger"
-			context['message'] = "The code NO exists"
 
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
@@ -129,7 +134,7 @@ class Item_detail(DetailView):
 		context = super(Item_detail, self).get_context_data(**kwargs)
 		url = str(self.object.file.url)
 
-		url = url[7:]
+		url = url[6:]
 		
 		if not os.path.exists('appQRMusical/files/temp/'):
 			os.mkdir('appQRMusical/files/temp/')

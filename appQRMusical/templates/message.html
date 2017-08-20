@@ -1,6 +1,18 @@
 {% load staticfiles %}
 
 <div id="auto" >
+
+	<div class="col-sm-12 QRM_box QRM_pink">
+		<div class="QRM_box_in">
+			{% if image %}
+				<div style="width:200; overflow: hidden">
+					<img src="{{ image }}" width="200">
+				</div>					
+			{% endif %}
+		</div>
+	</div>
+	
+	
 	<div class="col-sm-12 QRM_box alert {{ alert }}">
 		<p>
 			<strong>
@@ -8,11 +20,18 @@
 					Info. 
 				{% elif alert == 'alert-success' %}
 					Succes!.
+				{% elif alert == 'alert-danger' %}
+					Error!.
 				{% endif %}
 			</strong>
-			{{ message }}
+			{% if alert == 'alert-danger' %}
+				The QR code "{{ message }}" does not exist.
+			{% else %}
+				{{ message }}
+			{% endif %}
 		</p>
 	</div>
+	
 </div>
 
 <script src="{% static 'js/jquery.min.js' %}"></script>	
