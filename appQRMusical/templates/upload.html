@@ -17,36 +17,16 @@
 				</form>
 			</div>   
 		</div>
-<!--
-		<div class="col-sm-4">
-			<h5>Last 5 Images</h5>
-			{% for img in images_list %}
-				<a href="{% url 'item_detail' img.pk %}">
-					<p>{{ img }}</p>
-				</a>
-			{% endfor %}    
-		</div>    
 
-		<div class="col-sm-4">
-			<h5>Last 5 Songs</h5>
-			{% for son in songs_list %}
-				<a href="{% url 'item_detail' son.pk %}">
-					<p>{{ son }}</p>
-				</a>
-			{% endfor %}    
-		</div> 
+		<div class="col-sm-12 QRM_box alert {{ alert }}">
+			<p>{{ message }}</p>	
+		</div>
 
-		<div class="col-sm-4">
-			<h5>Last 5 Sounds</h5>
-			{% for sou in sound_list %}
-				<a href="{% url 'item_detail' sou.pk %}">
-					<p>{{ sou }}</p>
-				</a>			
-			{% endfor %}    
-		</div> 
- -->
 	</div>
 </div>
+
+
+
 <div>
 	{% include "last_items.html" with images_list=images_list %}
 </div>

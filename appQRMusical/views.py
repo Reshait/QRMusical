@@ -6,7 +6,6 @@ from django.views.generic.edit import UpdateView, FormMixin, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django import forms
-from django.template import Context
 
 
 import threading
@@ -55,9 +54,9 @@ def home(request):
 
 	print(global_vars.message)
 
-#	context = {'message' : global_vars.message,}
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
+
 
 class Setting(UpdateView):
 	model = Settings
@@ -81,6 +80,8 @@ def last_items(request, number_objects):
 def upload(request):
 
 	context = last_items(request, 5)
+	message = "Select a File, and press Upload"
+	alert = "alert-info"
 	
 	if request.method == 'POST':
 		form = FileForm(request.POST, request.FILES)
@@ -91,7 +92,9 @@ def upload(request):
 			name, ext = file_up.filename.rsplit('.', 1)
 			file_up.filetype = ext
 			file_up.save()
-			return redirect('upload')
+			message = "File upload success"
+			alert = "alert-success"
+			#return redirect('upload')
 	else:
 		form = FileForm()
 
@@ -100,6 +103,8 @@ def upload(request):
 		'images_list'   : context['images_list'],
 		'songs_list'    : context['songs_list'],
 		'sounds_list'   : context['sounds_list'],
+		'message'		: message,
+		'alert'			: alert,
 	})	
 
 
@@ -122,10 +127,16 @@ class Item_detail(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(Item_detail, self).get_context_data(**kwargs)
 		url = str(self.object.file.url)
+		
+		if not os.path.exists('appQRMusical/files/temp/'):
+			os.mkdir('appQRMusical/files/temp/')
+		
 		qrencode_command = "qrencode %s -o appQRMusical/files/temp/temp.png -s 6" % (url)
 		context['qr'] = os.popen(qrencode_command)
+
 		if context['qr']:
 			print("QR code of %s make it!" % self.object.filename)
+
 		return context
 
 
