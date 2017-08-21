@@ -43,9 +43,9 @@
 
 <script type="text/javascript">
 	
-    function update_message_home(){
-        $('#auto').load('{% url 'message' %} #auto');
+    function update(){
+        $('#auto').load('{% url 'game' %} #auto');
     }
-    setInterval( "update_message_home()", 2000 );
+    setInterval( "update()", 2000 );
     
 </script>

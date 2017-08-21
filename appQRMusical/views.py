@@ -14,6 +14,7 @@ from .models import Settings, File
 from .forms import FileForm, SettingEditForm
 from django.conf import settings
 import os
+import random
 
 import global_vars
 
@@ -22,7 +23,7 @@ import global_vars
 def message(request):
 	global_vars.message
 	context = {'glob_message' : global_vars.message,}
-	return render(request, 'glob_message.html', context)
+#	return render(request, 'glob_message.html', context)
 
 
 def read_code():
@@ -71,6 +72,77 @@ def home(request):
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
 
+def update_message(request):
+#	global_vars.message
+	context = {'glob_message' : global_vars.message,}
+
+
+def update_item(request):
+	global_vars.item = random.choice(File.objects.all().filter(filetype="jpg"))
+	global_vars.name = global_vars.item.filename[:-4]
+	os.popen('espeak -v en "%s"' % global_vars.name)
+
+
+def auto_refres_screen(request):
+	update_message
+#	if global_vars.change_item:
+	update_item
+#		global_vars.change_item = False
+
+
+def game(request):	
+	#initializing cam
+	global_vars.cam
+	global_vars.message
+	global_vars.zbar_status
+	#initializing game
+	global_vars.beginning_game
+	global_vars.item
+	global_vars.change_item	
+
+	context = last_items(request, 5)
+	context['alert'] = "alert-info"
+
+	if global_vars.change_item:
+		update_item(request)
+		global_vars.change_item = False
+
+	print( "ITEM ALEATORIO --------------------> %s" % global_vars.item.filename)
+
+
+	if global_vars.cam == 0:
+		global_vars.message = 'Get close QR code to cam'
+		global_vars.cam = 1
+
+	elif global_vars.cam == 1:
+#		global_vars.zbar_status = os.popen('/usr/bin/zbarcam --prescale=320x240','r')
+		global_vars.cam = 2
+		
+	elif global_vars.cam == 2:
+		if global_vars.zbar_status != None:
+			t = threading.Thread(target=read_code)
+			t.start()
+
+	print(global_vars.message)
+
+	url = global_vars.message
+	url = url[1:-1] 					#-1 is for delete \n
+	
+	if global_vars.message != "Get close QR code to cam":
+		path = settings.MEDIA_ROOT+'%s' % (url)
+		
+		if os.path.exists(path):
+			context['alert'] = "alert-success"
+			context['image'] = settings.MEDIA_URL+'%s' % (url)
+		else:
+			context['alert'] = "alert-danger"
+
+	context['message'] = global_vars.message
+	context['name'] = global_vars.name
+	print(global_vars.item.file.url)
+	print(context['name'])
+	return render(request, 'game.html', context)
+
 
 class Setting(UpdateView):
 	model = Settings
@@ -80,8 +152,13 @@ class Setting(UpdateView):
 
 
 class Game(TemplateView):
-	template_name = "game.html"
+	template_name="game.html"
 
+	def get_context_data(self, **kwargs):
+		context = super(Land_page, self).get_context_data(**kwargs)
+		context['title'] = "Select one"
+		context['subtitle'] = "Chosse one for play, set or view gallery"
+		return context
 
 def last_items(request, number_objects):
 	return {
@@ -158,3 +235,13 @@ class Item_delete(DeleteView):
 		if os.path.isfile(settings.MEDIA_ROOT+'%s' % (url)):
 			os.remove(settings.MEDIA_ROOT+'%s' % (url))
 		return obj
+
+
+class Land_page(TemplateView):
+	template_name="land_page.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(Land_page, self).get_context_data(**kwargs)
+		context['title'] = "Select one"
+		context['subtitle'] = "Chosse one for play, set or view gallery"
+		return context

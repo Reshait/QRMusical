@@ -6,22 +6,21 @@
 
 <div class="container">
 	<div class="row">
-<!--
-		<h1>Decrypt the code</h1>
-        <h2>Adjust the QR until it is in green</h2>
--->
 		<h1>{{ title }}</h1>
         <h2>{{ subtitle }}</h2>
-		<div>
-		
-			{% include "update_screen.html" %}
 
-		</div>
+		<div class="col-sm-12 QRM_box QRM_gray">
+			<div class="QRM_box_in">
+				{% block index %}
+				{% endblock index %}
+			</div>
+		</div>	
 
 	</div>
 </div>
+<!--
 <div>
 	{% include "last_items.html" with images_list=images_list %}
 </div>
+-->
 {% endblock content %}
-
