@@ -1,6 +1,6 @@
 cam = 0
 zbar_status = None
-message = None
+message = 'Get close QR code to cam'
 beginning_game = True
 item = None
 name = "hola"

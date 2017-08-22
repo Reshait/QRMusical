@@ -31,9 +31,9 @@ def read_code():
 		qrcode = str(data)[8:]
 		if qrcode:
 			print(qrcode)
-			global_vars.message = qrcode	
+			global_vars.message = qrcode
 
-"""
+
 def home(request):	
 	global_vars.cam
 	global_vars.message
@@ -71,56 +71,41 @@ def home(request):
 
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
-"""
 
+"""
 def update_message(request):
 	return render(request, 'update_screen.html', context)
+"""
 
-def talk_name():
-	os.popen('espeak -v en "%s" 2>/dev/null' % global_vars.name)
-
-def update_item(request):
-	global_vars.item = random.choice(File.objects.all().filter(filetype="jpg"))
-	global_vars.name = global_vars.item.filename[:-4]
-
-
-def game(request):	
-	#initializing cam
-	global_vars.cam
-	global_vars.message
-	global_vars.zbar_status
-	#initializing game
-	global_vars.beginning_game
-	global_vars.item
-	global_vars.change_item	
-
-	context = last_items(request, 5)
+def update_info(request):
+	context = {'name' : global_vars.name}
+	context['message'] = global_vars.message
 	context['alert'] = "alert-info"
+	open_cam(request)
+	return render(request, 'update_screen.html', context)
 
-	if global_vars.change_item:
-		update_item(request)
-		global_vars.change_item = False
 
-	print( "ITEM ALEATORIO --------------------> %s" % global_vars.item.filename)
-
+def open_cam(request):
 
 	if global_vars.cam == 0:
-		global_vars.message = 'Get close QR code to cam'
-		global_vars.cam = 1
-
-	elif global_vars.cam == 1:
 		global_vars.zbar_status = os.popen('/usr/bin/zbarcam --prescale=320x240','r')
-		global_vars.cam = 2
+		global_vars.cam += 1
 		
-	elif global_vars.cam == 2:
+	elif global_vars.cam == 1:
 		if global_vars.zbar_status != None:
-			t = threading.Thread(target=read_code)
+			t = threading.Thread(target=read_code(request))
 			t.start()
 
-#	print(global_vars.message)
+def game(request):	
 
-#	global_vars.message = global_vars.message[:-1]	#-1 is for delete \n
+	context = last_items(request, 5)
 
+	open_cam()	
+
+	select_random_item()
+
+	print( "ITEM ALEATORIO --------------------> %s" % global_vars.item.filename)
+	"""
 	if global_vars.message != "Get close QR code to cam":
 		url = global_vars.item.file.url[6:]
 		url_scan = global_vars.message[:-1] #-1 is for delete \n
@@ -133,10 +118,12 @@ def game(request):
 		else:
 			context['alert'] = "alert-danger"
 			global_vars.fail_flag = True
-			
+	"""		
 	context['message'] = global_vars.message
 	context['name'] = global_vars.name
 	context['talk_name'] = talk_name()
+	context['alert'] = "alert-info"
+
 	return render(request, 'game.html', context)
 
 
