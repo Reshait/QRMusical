@@ -30,7 +30,7 @@
 		</div>
 	
 		<div style="display:none">
-			{% if request.get_full_path == '/' or request.get_full_pat == 'game/' %}	
+			{% if request.get_full_path == '/' or request.get_full_path == '/game/' %}	
 				{% start_cam %}
 			{% else %}
 				{% stop_cam %}

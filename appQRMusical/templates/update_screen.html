@@ -1,10 +1,10 @@
 {% load staticfiles %}
 
 <div id="auto" >
-
+	
 	<div class="col-sm-12 QRM_box QRM_pink">
 		<div class="QRM_box_in">
-			{{ name }}
+		{{ name }}
 
 			<div style="width:200; overflow: hidden">
 
@@ -30,7 +30,7 @@
 				{% endif %}
 			</strong>
 			{% if alert == 'alert-danger' %}
-				The QR code "{{ message }}" does not exist.
+				The QR code "{{ message }}" is NOT the wanted.
 			{% else %}
 				{{ message }}
 			{% endif %}
@@ -44,7 +44,7 @@
 <script type="text/javascript">
 	
     function update(){
-        $('#auto').load('{% url 'game' %} #auto');
+        $('#auto').load('{% url 'update_message' %} #auto');
     }
     setInterval( "update()", 2000 );
     

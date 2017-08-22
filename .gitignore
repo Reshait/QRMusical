@@ -104,4 +104,5 @@ ENV/
 *.swp
 *.pyc
 *.mp3
+*.jpg
 *.png

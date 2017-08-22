@@ -21,7 +21,7 @@ import global_vars
 # Create your views here.
 	
 def message(request):
-	global_vars.message
+#	global_vars.message
 	context = {'glob_message' : global_vars.message,}
 #	return render(request, 'glob_message.html', context)
 
@@ -33,7 +33,7 @@ def read_code():
 			print(qrcode)
 			global_vars.message = qrcode	
 
-
+"""
 def home(request):	
 	global_vars.cam
 	global_vars.message
@@ -71,23 +71,17 @@ def home(request):
 
 	context['message'] = global_vars.message
 	return render(request, 'home.html', context)
+"""
 
 def update_message(request):
-#	global_vars.message
-	context = {'glob_message' : global_vars.message,}
+	return render(request, 'update_screen.html', context)
 
+def talk_name():
+	os.popen('espeak -v en "%s" 2>/dev/null' % global_vars.name)
 
 def update_item(request):
 	global_vars.item = random.choice(File.objects.all().filter(filetype="jpg"))
 	global_vars.name = global_vars.item.filename[:-4]
-	os.popen('espeak -v en "%s"' % global_vars.name)
-
-
-def auto_refres_screen(request):
-	update_message
-#	if global_vars.change_item:
-	update_item
-#		global_vars.change_item = False
 
 
 def game(request):	
@@ -115,7 +109,7 @@ def game(request):
 		global_vars.cam = 1
 
 	elif global_vars.cam == 1:
-#		global_vars.zbar_status = os.popen('/usr/bin/zbarcam --prescale=320x240','r')
+		global_vars.zbar_status = os.popen('/usr/bin/zbarcam --prescale=320x240','r')
 		global_vars.cam = 2
 		
 	elif global_vars.cam == 2:
@@ -123,24 +117,26 @@ def game(request):
 			t = threading.Thread(target=read_code)
 			t.start()
 
-	print(global_vars.message)
+#	print(global_vars.message)
 
-	url = global_vars.message
-	url = url[1:-1] 					#-1 is for delete \n
-	
+#	global_vars.message = global_vars.message[:-1]	#-1 is for delete \n
+
 	if global_vars.message != "Get close QR code to cam":
-		path = settings.MEDIA_ROOT+'%s' % (url)
+		url = global_vars.item.file.url[6:]
+		url_scan = global_vars.message[:-1] #-1 is for delete \n
 		
-		if os.path.exists(path):
+		if url == url_scan:
 			context['alert'] = "alert-success"
 			context['image'] = settings.MEDIA_URL+'%s' % (url)
+			if global_vars.fail_flag == False:
+				global_vars.game_points += 1
 		else:
 			context['alert'] = "alert-danger"
-
+			global_vars.fail_flag = True
+			
 	context['message'] = global_vars.message
 	context['name'] = global_vars.name
-	print(global_vars.item.file.url)
-	print(context['name'])
+	context['talk_name'] = talk_name()
 	return render(request, 'game.html', context)
 
 

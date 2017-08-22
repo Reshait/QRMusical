@@ -24,16 +24,13 @@ from appQRMusical.views import Setting, Game, Item_detail, Item_delete, Land_pag
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-#    url(r'^$', Home.as_view(), name='home'),
-    url(r'^$', views.home, name='home'),
+#    url(r'^$', views.home, name='home'),
     url(r'^$', views.message, name='message'),
-    url(r'^$', views.auto_refres_screen, name='auto_refres_screen'),    
-    url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
-
-    url(r'^upload/$', views.upload, name ='upload'),
-#    url(r'^upload/$', views.last_items, name ='last_items'),
-
     url(r'^game/$', views.game, name = 'game'),
+    url(r'^game/$', views.update_message, name='update_message'),  
+        
+    url(r'^setting/(?P<pk>\d+)/$', Setting.as_view(), name='setting'),
+    url(r'^upload/$', views.upload, name ='upload'),
     url(r'^item_detail/(?P<pk>\d+)/$', Item_detail.as_view(), name='item_detail'),
     url(r'^item_list/$', views.item_list, name='item_list'),
     url(r'^item_detail/(?P<pk>\d+)/delete/$', Item_delete.as_view(), name='item_delete'),

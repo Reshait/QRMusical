@@ -5,4 +5,6 @@ beginning_game = True
 item = None
 name = "hola"
 change_item = True
+game_points = 0
+fail_flag = False
 
